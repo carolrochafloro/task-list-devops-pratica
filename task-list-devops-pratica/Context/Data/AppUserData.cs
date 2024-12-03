@@ -1,8 +1,9 @@
-﻿using task_list_devops_pratica.Models;
+﻿using task_list_devops_pratica.Models.Entities;
+using task_list_devops_pratica.Models.Interfaces;
 
 namespace task_list_devops_pratica.Context.Data;
 
-public class AppUserData
+public class AppUserData : IAppUserData
 {
     private readonly TaskContext _context;
 

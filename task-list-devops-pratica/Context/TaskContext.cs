@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using task_list_devops_pratica.Models;
+using task_list_devops_pratica.Models.Entities;
 
 namespace task_list_devops_pratica.Context;
 

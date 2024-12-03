@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace task_list_devops_pratica.Models;
+namespace task_list_devops_pratica.Models.Entities;
 
 public class AppUser
 {
