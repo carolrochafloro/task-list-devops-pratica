@@ -1,6 +1,12 @@
 using dotenv.net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using task_list_devops_pratica.Context;
+using task_list_devops_pratica.Context.Data;
+using task_list_devops_pratica.Models.Interfaces;
+using task_list_devops_pratica.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +14,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "TaskTodo",
+        ValidAudience = "TaskTodo",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("hardCodedKeyForNow1234567890!_testeeeee"))
+    };
+});
 
 DotEnv.Load();
 
@@ -22,6 +47,10 @@ builder.Services.AddDbContext<TaskContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddScoped<IAppUserData, AppUserData>();
+builder.Services.AddScoped<ITaskToDoData, TaskToDoData>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
