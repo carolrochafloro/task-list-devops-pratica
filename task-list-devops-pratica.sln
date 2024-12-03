@@ -5,6 +5,11 @@ VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task-list-devops-pratica", "task-list-devops-pratica\task-list-devops-pratica.csproj", "{0FEC1910-8D79-4665-9976-76C94C4D2006}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{1B15F19D-8CE5-4E01-929B-6482017346E7}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

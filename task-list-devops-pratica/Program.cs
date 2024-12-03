@@ -1,11 +1,27 @@
+using dotenv.net;
+using Microsoft.EntityFrameworkCore;
+using task_list_devops_pratica.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+DotEnv.Load();
+
+var connectionString = Environment.GetEnvironmentVariable("DEFAULT_CONNECTION");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("Connection string not found.");
+}
+
+builder.Services.AddDbContext<TaskContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 
@@ -17,9 +33,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
